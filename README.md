@@ -79,4 +79,4 @@ Distributed under the MIT License. See `LICENSE` for more information.
 
 Your Name - [fataiwasiu2@gmail.com](mailto:fataiwasiu2@gmail.com)
 
-Project Link: [https://github.com/your-username/student-exam-management-system](https://github.com/wastech/StudentExamManagementSystem)
+Project Link: [https://github.com/wastech/StudentExamManagementSystem](https://github.com/wastech/StudentExamManagementSystem)
