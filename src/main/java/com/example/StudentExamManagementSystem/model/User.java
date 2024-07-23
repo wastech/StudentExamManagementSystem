@@ -10,9 +10,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 import lombok.*;
 
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Data
@@ -92,5 +90,10 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new HashSet<>();
 
+    @OneToMany(mappedBy = "user", cascade = {CascadeType.PERSIST, CascadeType.MERGE}, orphanRemoval = true)
+//    @JoinTable(name = "user_address",
+//                joinColumns = @JoinColumn(name = "user_id"),
+//                inverseJoinColumns = @JoinColumn(name = "address_id"))
+    private List<Course> courses = new ArrayList<>();
 
 }
