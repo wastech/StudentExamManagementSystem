@@ -56,6 +56,7 @@ public class JwtUtils {
         return cookie;
     }
 
+
     public String generateTokenFromUsername(String username) {
         return Jwts.builder()
                 .setSubject(username)

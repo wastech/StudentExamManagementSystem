@@ -22,16 +22,28 @@ public class StudentCourse {
     private Long studentCourseId;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    @OneToMany
-    @JoinColumn(name = "course_id")
-    private Long courseId;
 
-    @Column
-    @DateTimeFormat
+    @ManyToOne
+    @JoinColumn(name = "course_id", nullable = false)
+    private Course course;
+
+    @Column(nullable = false)
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date enrollmentDate;
+
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "created_at", nullable = false, updatable = false)
+    private Date createdAt;
+
+
+    @PrePersist
+    protected void onCreate() {
+        createdAt = new Date();
+    }
 
 
 }
