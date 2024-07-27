@@ -22,12 +22,12 @@ public class StudentCourse {
     private Long studentCourseId;
 
     @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
+    @JoinColumn(name = "user_id")
     private User user;
 
 
     @ManyToOne
-    @JoinColumn(name = "course_id", nullable = false)
+    @JoinColumn(name = "course_id")
     private Course course;
 
     @Column(nullable = false)
@@ -36,7 +36,7 @@ public class StudentCourse {
 
 
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "created_at", nullable = false, updatable = false)
+    @Column(name = "created_at")
     private Date createdAt;
 
 
@@ -45,5 +45,14 @@ public class StudentCourse {
         createdAt = new Date();
     }
 
-
+    @Override
+    public String toString() {
+        return "StudentCourse{" +
+            "studentCourseId=" + studentCourseId +
+            ", userId=" + (user != null ? user.getUserId() : "null") +
+            ", courseId=" + (course != null ? course.getCourseId() : "null") +
+            ", enrollmentDate=" + enrollmentDate +
+            ", createdAt=" + createdAt +
+            '}';
+    }
 }

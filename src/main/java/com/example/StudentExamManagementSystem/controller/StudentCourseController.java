@@ -25,8 +25,8 @@ public class StudentCourseController {
     @PostMapping("/student-courses")
     public ResponseEntity<StudentCourseDTO> createStudentCourse(@Valid @RequestBody StudentCourseDTO studentCourseDTO) {
         User user = authUtil.loggedInUser();
-        studentCourseDTO.setUserId(user.getUserId());
-        StudentCourseDTO savedStudentCourseDTO = studentCourseService.createStudentCourse(studentCourseDTO);
+        System.out.println("this is user data" + user);
+        StudentCourseDTO savedStudentCourseDTO = studentCourseService.createStudentCourse(studentCourseDTO, user);
         return new ResponseEntity<>(savedStudentCourseDTO, HttpStatus.CREATED);
     }
 

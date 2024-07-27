@@ -4,6 +4,7 @@ import com.example.StudentExamManagementSystem.exceptions.ResourceNotFoundExcept
 import com.example.StudentExamManagementSystem.model.Course;
 import com.example.StudentExamManagementSystem.model.StudentCourse;
 import com.example.StudentExamManagementSystem.model.User;
+import com.example.StudentExamManagementSystem.payload.CourseDTO;
 import com.example.StudentExamManagementSystem.payload.StudentCourseDTO;
 import com.example.StudentExamManagementSystem.repositories.CourseRepository;
 import com.example.StudentExamManagementSystem.repositories.StudentCourseRepository;
@@ -30,17 +31,40 @@ public class StudentCourseServiceImpl implements  StudentCourseService{
     @Autowired
     private UserRepository userRepository;
     @Override
-    public StudentCourseDTO createStudentCourse(StudentCourseDTO studentCourseDTO) {
+    public StudentCourseDTO createStudentCourse(StudentCourseDTO studentCourseDTO, User user) {
         try {
+            // Map the DTO to the entity
             StudentCourse studentCourse = modelMapper.map(studentCourseDTO, StudentCourse.class);
+System.out.println("studentCourse"+studentCourse);
+            // Set the user for the studentCourse
+            studentCourse.setUser(user);
+
+            // Set the creation date
             studentCourse.setCreatedAt(new Date());
+
+            // If the DTO contains a course ID, retrieve and set the course entity
+            if (studentCourseDTO.getCourseId() != null) {
+                Course course = courseRepository.findById(studentCourseDTO.getCourseId())
+                    .orElseThrow(() -> new RuntimeException("Course not found"));
+                studentCourse.setCourse(course);
+            }
+
+            // Add the studentCourse to the user's list of studentCourses
+            List<StudentCourse> studentCoursesList = user.getStudentCourses();
+            studentCoursesList.add(studentCourse);
+            user.setStudentCourses(studentCoursesList);
+
+            // Save the studentCourse entity
             StudentCourse savedStudentCourse = studentCourseRepository.save(studentCourse);
+
+            // Map the saved entity back to a DTO and return it
             return modelMapper.map(savedStudentCourse, StudentCourseDTO.class);
         } catch (Exception e) {
             // Handle exception and provide a meaningful message or log the error
             throw new RuntimeException("Failed to create StudentCourse", e);
         }
     }
+
 
     @Override
     public StudentCourseDTO getStudentCourseById(Long studentCourseId) {
