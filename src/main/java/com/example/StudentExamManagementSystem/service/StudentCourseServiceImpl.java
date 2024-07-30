@@ -1,6 +1,7 @@
 package com.example.StudentExamManagementSystem.service;
 
 import com.example.StudentExamManagementSystem.exceptions.ResourceNotFoundException;
+import com.example.StudentExamManagementSystem.exceptions.APIException;
 import com.example.StudentExamManagementSystem.model.Course;
 import com.example.StudentExamManagementSystem.model.StudentCourse;
 import com.example.StudentExamManagementSystem.model.User;
@@ -37,7 +38,7 @@ public class StudentCourseServiceImpl implements  StudentCourseService{
                 boolean exists = studentCourseRepository.existsByUser(user);
                 if (exists) {
 
-                    throw new IllegalStateException("Student is already enrolled in a course");
+                    throw new APIException("Student is already enrolled in a course");
                 }
 
             StudentCourse studentCourse = modelMapper.map(studentCourseDTO, StudentCourse.class);
@@ -47,7 +48,7 @@ public class StudentCourseServiceImpl implements  StudentCourseService{
 
             if (studentCourseDTO.getCourseId() != null) {
                 Course course = courseRepository.findById(studentCourseDTO.getCourseId())
-                    .orElseThrow(() -> new RuntimeException("Course not found"));
+                    .orElseThrow(() -> new ResourceNotFoundException("Course", "courseId", studentCourseDTO.getCourseId()));
                 studentCourse.setCourse(course);
             }
 
@@ -110,6 +111,7 @@ public class StudentCourseServiceImpl implements  StudentCourseService{
 
             existingStudentCourse.setEnrollmentDate(studentCourseDTO.getEnrollmentDate());
 
+
             StudentCourse updatedStudentCourse = studentCourseRepository.save(existingStudentCourse);
             return modelMapper.map(updatedStudentCourse, StudentCourseDTO.class);
         } catch (Exception e) {
@@ -122,7 +124,7 @@ public class StudentCourseServiceImpl implements  StudentCourseService{
     @Override
     public String deleteStudentCourse(Long studentCourseId, User user) {
         StudentCourse existingStudentCourse = studentCourseRepository.findById(studentCourseId)
-            .orElseThrow(() -> new ResourceNotFoundException("StudentCourse", "studentCourseId", studentCourseId));
+            .orElseThrow(() -> new  ("StudentCourse", "studentCourseId", studentCourseId));
 
         if (!existingStudentCourse.getUser().getUserId().equals(user.getUserId()) && !isAdmin(user)) {
             throw new RuntimeException("You do not have permission to delete this student course");
