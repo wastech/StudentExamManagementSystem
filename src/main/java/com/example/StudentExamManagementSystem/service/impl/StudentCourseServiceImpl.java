@@ -1,4 +1,4 @@
-package com.example.StudentExamManagementSystem.service;
+package com.example.StudentExamManagementSystem.service.impl;
 
 import com.example.StudentExamManagementSystem.exceptions.ResourceNotFoundException;
 import com.example.StudentExamManagementSystem.exceptions.APIException;
@@ -10,6 +10,7 @@ import com.example.StudentExamManagementSystem.payload.StudentCourseDTO;
 import com.example.StudentExamManagementSystem.repositories.CourseRepository;
 import com.example.StudentExamManagementSystem.repositories.StudentCourseRepository;
 import com.example.StudentExamManagementSystem.repositories.UserRepository;
+import com.example.StudentExamManagementSystem.service.StudentCourseService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,7 +20,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class StudentCourseServiceImpl implements  StudentCourseService{
+public class StudentCourseServiceImpl implements StudentCourseService {
 
     @Autowired
     private ModelMapper modelMapper;
@@ -124,7 +125,7 @@ public class StudentCourseServiceImpl implements  StudentCourseService{
     @Override
     public String deleteStudentCourse(Long studentCourseId, User user) {
         StudentCourse existingStudentCourse = studentCourseRepository.findById(studentCourseId)
-            .orElseThrow(() -> new  ("StudentCourse", "studentCourseId", studentCourseId));
+            .orElseThrow(() -> new ResourceNotFoundException("StudentCourse", "studentCourseId", studentCourseId));
 
         if (!existingStudentCourse.getUser().getUserId().equals(user.getUserId()) && !isAdmin(user)) {
             throw new RuntimeException("You do not have permission to delete this student course");

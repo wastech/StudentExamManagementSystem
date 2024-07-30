@@ -1,4 +1,4 @@
-package com.example.StudentExamManagementSystem.service;
+package com.example.StudentExamManagementSystem.service.impl;
 
 import com.example.StudentExamManagementSystem.exceptions.ResourceNotFoundException;
 import com.example.StudentExamManagementSystem.model.Course;
@@ -6,6 +6,7 @@ import com.example.StudentExamManagementSystem.model.User;
 import com.example.StudentExamManagementSystem.payload.CourseDTO;
 import com.example.StudentExamManagementSystem.repositories.CourseRepository;
 import com.example.StudentExamManagementSystem.repositories.UserRepository;
+import com.example.StudentExamManagementSystem.service.CourseService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,7 +18,7 @@ import java.util.List;
 
 
 @Service
-public class CourseServiceImpl  implements  CourseService{
+public class CourseServiceImpl  implements CourseService {
     @Autowired
     private ModelMapper modelMapper;
 
