@@ -1,10 +1,7 @@
 package com.example.StudentExamManagementSystem.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.NonNull;
+import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
@@ -14,7 +11,8 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "student_course")
+@Table(name = "student_course",
+    uniqueConstraints = @UniqueConstraint(columnNames = {"user_id", "course_id"}))
 public class StudentCourse {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -49,8 +47,8 @@ public class StudentCourse {
     public String toString() {
         return "StudentCourse{" +
             "studentCourseId=" + studentCourseId +
-            ", userId=" + (user != null ? user.getUserId() : "null") +
-            ", courseId=" + (course != null ? course.getCourseId() : "null") +
+            ", user=" + (user != null ? user.getUserId() : null) +
+            ", course=" + (course != null ? course.getCourseId() : null) +
             ", enrollmentDate=" + enrollmentDate +
             ", createdAt=" + createdAt +
             '}';

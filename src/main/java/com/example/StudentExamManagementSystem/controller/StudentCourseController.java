@@ -24,11 +24,19 @@ public class StudentCourseController {
 
     @PostMapping("/student-courses")
     public ResponseEntity<StudentCourseDTO> createStudentCourse(@Valid @RequestBody StudentCourseDTO studentCourseDTO) {
-        User user = authUtil.loggedInUser();
-        System.out.println("this is user data" + user);
-        StudentCourseDTO savedStudentCourseDTO = studentCourseService.createStudentCourse(studentCourseDTO, user);
-        return new ResponseEntity<>(savedStudentCourseDTO, HttpStatus.CREATED);
+        System.out.println("this is user studentCourseDTO" + studentCourseDTO);
+        try {
+            User user = authUtil.loggedInUser();
+            System.out.println("this is user data" + user);
+            StudentCourseDTO savedStudentCourseDTO = studentCourseService.createStudentCourse(studentCourseDTO, user);
+            return new ResponseEntity<>(savedStudentCourseDTO, HttpStatus.CREATED);
+        } catch (Exception e) {
+            System.err.println("Exception occurred: " + e.getMessage());
+            e.printStackTrace();
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
+
 
     @GetMapping("/student-courses")
     public ResponseEntity<List<StudentCourseDTO>> getAllStudentCourses() {

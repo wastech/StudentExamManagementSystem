@@ -8,10 +8,12 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
 @Entity
+//@ToString
 @Table(name = "courses")
 public class Course {
 
@@ -27,15 +29,20 @@ public class Course {
 
     @NotBlank
     @Column(name = "course_description", nullable = false)
-    private String CourseDescription;
+    private String courseDescription;
 
 
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
 
-    public Course(String courseName, String courseDescription) {
-        this.courseName = courseName;
-        CourseDescription = courseDescription;
+    @Override
+    public String toString() {
+        return "Course{" +
+            "courseId=" + courseId +
+            ", courseName='" + courseName + '\'' +
+            ", courseDescription='" + courseDescription + '\'' +
+            ", user=" + (user != null ? user.getUserId() : null) +
+            '}';
     }
 }

@@ -16,6 +16,7 @@ import java.util.*;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+//@ToString
 @Table(name = "users",
     uniqueConstraints = {
         @UniqueConstraint(columnNames = "username"),
@@ -91,10 +92,12 @@ public class User {
     private Set<Role> roles = new HashSet<>();
 
     @OneToMany(mappedBy = "user", cascade = {CascadeType.PERSIST, CascadeType.MERGE}, orphanRemoval = true)
+    @ToString.Exclude
     private List<Course> courses = new ArrayList<>();
 
 
     @OneToMany(mappedBy = "user", cascade = {CascadeType.PERSIST, CascadeType.MERGE}, orphanRemoval = true)
+    @ToString.Exclude
     private List<StudentCourse> studentCourses = new ArrayList<>();
 
 
@@ -108,4 +111,20 @@ public class User {
         this.registrationDate = registrationDate;
         this.password = password;
     }
+
+    @Override
+    public String toString() {
+        return "User{" +
+            "userId=" + userId +
+            ", firstName='" + firstName + '\'' +
+            ", userName='" + userName + '\'' +
+            ", lastName='" + lastName + '\'' +
+            ", email='" + email + '\'' +
+            ", dob=" + dob +
+            ", hireDate=" + hireDate +
+            ", registrationDate=" + registrationDate +
+            ", createdAt=" + createdAt +
+            '}';
+    }
+
 }

@@ -33,34 +33,32 @@ public class StudentCourseServiceImpl implements  StudentCourseService{
     @Override
     public StudentCourseDTO createStudentCourse(StudentCourseDTO studentCourseDTO, User user) {
         try {
-            // Map the DTO to the entity
+
+                boolean exists = studentCourseRepository.existsByUser(user);
+                if (exists) {
+
+                    throw new IllegalStateException("Student is already enrolled in a course");
+                }
+
             StudentCourse studentCourse = modelMapper.map(studentCourseDTO, StudentCourse.class);
-System.out.println("studentCourse"+studentCourse);
-            // Set the user for the studentCourse
             studentCourse.setUser(user);
 
-            // Set the creation date
             studentCourse.setCreatedAt(new Date());
 
-            // If the DTO contains a course ID, retrieve and set the course entity
             if (studentCourseDTO.getCourseId() != null) {
                 Course course = courseRepository.findById(studentCourseDTO.getCourseId())
                     .orElseThrow(() -> new RuntimeException("Course not found"));
                 studentCourse.setCourse(course);
             }
 
-            // Add the studentCourse to the user's list of studentCourses
             List<StudentCourse> studentCoursesList = user.getStudentCourses();
             studentCoursesList.add(studentCourse);
             user.setStudentCourses(studentCoursesList);
 
-            // Save the studentCourse entity
             StudentCourse savedStudentCourse = studentCourseRepository.save(studentCourse);
 
-            // Map the saved entity back to a DTO and return it
             return modelMapper.map(savedStudentCourse, StudentCourseDTO.class);
         } catch (Exception e) {
-            // Handle exception and provide a meaningful message or log the error
             throw new RuntimeException("Failed to create StudentCourse", e);
         }
     }
