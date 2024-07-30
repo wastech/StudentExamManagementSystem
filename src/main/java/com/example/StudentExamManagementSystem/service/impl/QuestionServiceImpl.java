@@ -6,10 +6,12 @@ import com.example.StudentExamManagementSystem.repositories.QuestionRepository;
 import com.example.StudentExamManagementSystem.service.QuestionService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Service
 public class QuestionServiceImpl  implements QuestionService {
 
     @Autowired
