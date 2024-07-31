@@ -2,7 +2,7 @@ package com.example.StudentExamManagementSystem.service.impl;
 
 import com.example.StudentExamManagementSystem.model.Question;
 import com.example.StudentExamManagementSystem.payload.QuestionDTO;
-import com.example.StudentExamManagementSystem.repositories.QuestionRepository;
+import com.example.StudentExamManagementSystem.repository.QuestionRepository;
 import com.example.StudentExamManagementSystem.service.QuestionService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;

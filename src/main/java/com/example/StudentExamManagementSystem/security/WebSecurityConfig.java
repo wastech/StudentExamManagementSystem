@@ -3,8 +3,8 @@ package com.example.StudentExamManagementSystem.security;
 import com.example.StudentExamManagementSystem.model.AppRole;
 import com.example.StudentExamManagementSystem.model.Role;
 import com.example.StudentExamManagementSystem.model.User;
-import com.example.StudentExamManagementSystem.repositories.RoleRepository;
-import com.example.StudentExamManagementSystem.repositories.UserRepository;
+import com.example.StudentExamManagementSystem.repository.RoleRepository;
+import com.example.StudentExamManagementSystem.repository.UserRepository;
 import com.example.StudentExamManagementSystem.security.jwt.AuthEntryPointJwt;
 import com.example.StudentExamManagementSystem.security.jwt.AuthTokenFilter;
 import com.example.StudentExamManagementSystem.security.services.UserDetailsServiceImpl;
@@ -26,7 +26,6 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 
 import java.util.Date;
-import java.util.HashSet;
 import java.util.Set;
 
 @Configuration

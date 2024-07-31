@@ -8,9 +8,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import com.example.StudentExamManagementSystem.model.Exam;
-import com.example.StudentExamManagementSystem.repositories.CourseRepository;
-import com.example.StudentExamManagementSystem.repositories.ExamRepository;
-import com.example.StudentExamManagementSystem.repositories.UserRepository;
+import com.example.StudentExamManagementSystem.repository.CourseRepository;
+import com.example.StudentExamManagementSystem.repository.ExamRepository;
+import com.example.StudentExamManagementSystem.repository.UserRepository;
 import com.example.StudentExamManagementSystem.service.ExamService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;

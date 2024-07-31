@@ -27,6 +27,10 @@ public class Question {
     @Column(name = "question_type", nullable = false)
     private QuestionType questionType;
 
+    @ManyToOne
+    @JoinColumn(name = "exam_id", nullable = false)
+    private Exam exam;
+
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "created_at", nullable = false, updatable = false)
     private Date createdAt;

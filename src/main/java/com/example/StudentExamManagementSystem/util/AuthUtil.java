@@ -1,7 +1,7 @@
 package com.example.StudentExamManagementSystem.util;
 
 import com.example.StudentExamManagementSystem.model.User;
-import com.example.StudentExamManagementSystem.repositories.UserRepository;
+import com.example.StudentExamManagementSystem.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;

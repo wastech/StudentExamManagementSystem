@@ -6,9 +6,9 @@ import com.example.StudentExamManagementSystem.model.Exam;
 import com.example.StudentExamManagementSystem.model.ExamQuestion;
 import com.example.StudentExamManagementSystem.model.Question;
 
-import com.example.StudentExamManagementSystem.repositories.ExamQuestionRepository;
-import com.example.StudentExamManagementSystem.repositories.ExamRepository;
-import com.example.StudentExamManagementSystem.repositories.QuestionRepository;
+import com.example.StudentExamManagementSystem.repository.ExamQuestionRepository;
+import com.example.StudentExamManagementSystem.repository.ExamRepository;
+import com.example.StudentExamManagementSystem.repository.QuestionRepository;
 import com.example.StudentExamManagementSystem.service.ExamQuestionService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;

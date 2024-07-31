@@ -1,4 +1,4 @@
-package com.example.StudentExamManagementSystem.repositories;
+package com.example.StudentExamManagementSystem.repository;
 
 import com.example.StudentExamManagementSystem.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;

@@ -4,8 +4,8 @@ import com.example.StudentExamManagementSystem.exceptions.ResourceNotFoundExcept
 import com.example.StudentExamManagementSystem.model.Course;
 import com.example.StudentExamManagementSystem.model.User;
 import com.example.StudentExamManagementSystem.payload.CourseDTO;
-import com.example.StudentExamManagementSystem.repositories.CourseRepository;
-import com.example.StudentExamManagementSystem.repositories.UserRepository;
+import com.example.StudentExamManagementSystem.repository.CourseRepository;
+import com.example.StudentExamManagementSystem.repository.UserRepository;
 import com.example.StudentExamManagementSystem.service.CourseService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
