@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,9 +31,9 @@ public class ExamController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteExam(@PathVariable Long id) {
-        examService.deleteExam(id);
-        return ResponseEntity.noContent().build();
+    public ResponseEntity<ExamDTO> deleteExam(@PathVariable Long id) {
+      ExamDTO deletedExam =  examService.deleteExam(id);
+        return new ResponseEntity<>(deletedExam, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")

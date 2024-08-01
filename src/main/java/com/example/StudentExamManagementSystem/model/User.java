@@ -100,6 +100,8 @@ public class User {
     @ToString.Exclude
     private List<StudentCourse> studentCourses = new ArrayList<>();
 
+    @OneToMany(mappedBy = "user", cascade = {CascadeType.PERSIST, CascadeType.MERGE}, orphanRemoval = true)
+    private List<Exam> exams = new ArrayList<>();
 
     public User(String firstName, String userName, String lastName, String email, Date dob, Date hireDate, Date registrationDate, String password) {
         this.firstName = firstName;

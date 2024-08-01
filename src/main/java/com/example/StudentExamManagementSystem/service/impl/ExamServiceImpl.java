@@ -1,5 +1,6 @@
 package com.example.StudentExamManagementSystem.service.impl;
 
+import com.example.StudentExamManagementSystem.exceptions.APIException;
 import com.example.StudentExamManagementSystem.exceptions.ResourceNotFoundException;
 import com.example.StudentExamManagementSystem.model.Course;
 import com.example.StudentExamManagementSystem.model.User;
@@ -41,22 +42,32 @@ public class ExamServiceImpl implements ExamService {
 
         boolean exists = examRepository.findExistingExamForUser(user, examDTO.getExamDate()).isPresent();
         if (exists) {
-            throw new IllegalStateException("Student is already assigned to an exam at this time");
+            throw  new APIException("Student is already assigned to an exam at this time");
         }
 
-        Exam exam = modelMapper.map(examDTO, Exam.class);
+        Exam exam = new Exam();
+        exam.setExamName(examDTO.getExamName());
+        exam.setExamDate(examDTO.getExamDate());
+        exam.setDurationMinutes(examDTO.getDurationMinutes());
 
         if (examDTO.getCourseId() != null) {
             Course course = courseRepository.findById(examDTO.getCourseId())
-                .orElseThrow(() -> new ResourceNotFoundException("Course", "courseId",examDTO.getCourseId() ));
+                .orElseThrow(() -> new ResourceNotFoundException("Course", "courseId", examDTO.getCourseId()));
             exam.setCourse(course);
         }
 
         exam.setUser(user);
         Exam savedExam = examRepository.save(exam);
-        return modelMapper.map(savedExam, ExamDTO.class);
-    }
 
+        // Add the exam to the user's list of exams
+        user.getExams().add(savedExam);
+        userRepository.save(user);
+
+        ExamDTO savedExamDTO = modelMapper.map(savedExam, ExamDTO.class);
+        savedExamDTO.setCourseId(savedExam.getCourse().getCourseId());
+        savedExamDTO.setUserId(savedExam.getUser().getUserId());
+        return savedExamDTO;
+    }
     @Override
     public ExamDTO updateExam(Long examId, ExamDTO examDTO) {
         Exam exam = examRepository.findById(examId)
@@ -68,7 +79,7 @@ public class ExamServiceImpl implements ExamService {
         boolean exists = examRepository.findExistingExamForUser(user, examDTO.getExamDate())
             .filter(e -> !e.getExamId().equals(examId)).isPresent();
         if (exists) {
-            throw new IllegalStateException("Student is already assigned to an exam at this time");
+            throw new APIException("Student is already assigned to an exam at this time");
         }
 
         exam.setExamName(examDTO.getExamName());
@@ -86,16 +97,17 @@ public class ExamServiceImpl implements ExamService {
         return modelMapper.map(updatedExam, ExamDTO.class);
     }
     @Override
-    public void deleteExam(Long examId) {
+    public ExamDTO deleteExam(Long examId) {
         Exam exam = examRepository.findById(examId)
-            .orElseThrow(() -> new RuntimeException("Exam not found"));
+            .orElseThrow(() -> new APIException("Exam not found"));
         examRepository.delete(exam);
+        return modelMapper.map(exam, ExamDTO.class);
     }
 
     @Override
     public ExamDTO getExamById(Long examId) {
         Exam exam = examRepository.findById(examId)
-            .orElseThrow(() -> new RuntimeException("Exam not found"));
+            .orElseThrow(() -> new APIException("Exam not found"));
         return modelMapper.map(exam, ExamDTO.class);
     }
 

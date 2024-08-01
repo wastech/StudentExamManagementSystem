@@ -13,7 +13,7 @@ public interface ExamService {
 
     ExamDTO updateExam(Long examId, ExamDTO examDTO);
 
-    void deleteExam(Long examId);
+    ExamDTO deleteExam(Long examId);
 
     ExamDTO getExamById(Long examId);
 
