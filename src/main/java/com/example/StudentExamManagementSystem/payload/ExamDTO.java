@@ -12,8 +12,6 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ExamDTO {
-
-    private Long examId;
     private String examName;
     private Long courseId;
     private Long userId;
