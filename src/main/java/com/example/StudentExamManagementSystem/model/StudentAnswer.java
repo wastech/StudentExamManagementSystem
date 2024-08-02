@@ -35,9 +35,9 @@ public class StudentAnswer {
     private String answerText;
 
     @Column(name = "is_correct", nullable = false)
-    private boolean isCorrect;
+    private boolean correct;
 
-    public boolean getIsCorrect() {
-        return isCorrect;
+    public boolean getCorrect() {
+        return correct;
     }
 }

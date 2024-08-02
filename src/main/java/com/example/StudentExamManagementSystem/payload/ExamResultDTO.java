@@ -8,7 +8,6 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ExamResultDTO {
-    private Long examResultId;
     private Long userId;
     private Long examId;
     private Float score;

@@ -23,8 +23,9 @@ public class Answer {
     @Column(name = "answer_text", nullable = false, columnDefinition = "TEXT")
     private String answerText;
 
+
     @Column(name = "is_correct", nullable = false)
-    private boolean isCorrect;
+    private boolean correct;
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "created_at", nullable = false, updatable = false)

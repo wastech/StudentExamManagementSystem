@@ -34,7 +34,6 @@ public class AnswerServiceImpl implements AnswerService {
         Answer answer = modelMapper.map(answerDTO, Answer.class);
         answer.setQuestion(question);
         answer.setCreatedAt(new Date());
-
         Answer savedAnswer = answerRepository.save(answer);
         return modelMapper.map(savedAnswer, AnswerDTO.class);
     }

@@ -6,7 +6,6 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 public class StudentAnswerDTO {
-    private Long studentAnswerId;
     private Long userId;
     private Long examId;
     private Long questionId;

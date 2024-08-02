@@ -8,7 +8,7 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class QuestionDTO {
-    private Long questionId;
     private String questionText;
     private QuestionType questionType;
+    private Long examId;
 }

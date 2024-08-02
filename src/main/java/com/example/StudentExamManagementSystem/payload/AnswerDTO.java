@@ -11,6 +11,6 @@ public class AnswerDTO {
     private Long answerId;
     private Long questionId;
     private String answerText;
-    private boolean isCorrect;
+    private boolean correct;
     private Date createdAt;
 }

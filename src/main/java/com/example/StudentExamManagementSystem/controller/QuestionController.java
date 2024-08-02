@@ -2,6 +2,10 @@ package com.example.StudentExamManagementSystem.controller;
 import com.example.StudentExamManagementSystem.payload.QuestionDTO;
 import com.example.StudentExamManagementSystem.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -35,9 +39,9 @@ public class QuestionController {
     }
 
     @GetMapping
-    public ResponseEntity<List<QuestionDTO>> getAllQuestions() {
-        List<QuestionDTO> questions = questionService.getAllQuestions();
-        return ResponseEntity.ok(questions);
+    public Page<QuestionDTO> getAllQuestions(
+        @PageableDefault(sort = "questionText", direction = Sort.Direction.ASC) Pageable pageable) {
+        return questionService.getAllQuestions(pageable);
     }
 
     @PutMapping("/{id}")
