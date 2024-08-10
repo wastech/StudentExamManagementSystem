@@ -17,8 +17,10 @@ public class ExamResultController {
 
     @PostMapping
     public ResponseEntity<?> createExamResult(@RequestBody ExamResultDTO examResultDTO) {
+
         try {
             ExamResultDTO createdExamResult = examResultService.createExamResult(examResultDTO);
+            System.out.println("createdExamResult"+ createdExamResult);
             return ResponseEntity.ok(createdExamResult);
         } catch (RuntimeException e) {
             return ResponseEntity.badRequest().body(e.getMessage());

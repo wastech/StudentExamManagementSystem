@@ -11,4 +11,5 @@ public class StudentAnswerDTO {
     private Long questionId;
     private Long answerId;
     private String answerText;
+    private Boolean isCorrect;
 }

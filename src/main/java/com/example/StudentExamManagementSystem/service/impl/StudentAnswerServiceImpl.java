@@ -34,6 +34,7 @@ public class StudentAnswerServiceImpl implements StudentAnswerService {
 
     @Override
     public StudentAnswerDTO createStudentAnswer(StudentAnswerDTO studentAnswerDTO) {
+        // Fetch related entities
         User user = userRepository.findById(studentAnswerDTO.getUserId())
             .orElseThrow(() -> new RuntimeException("User not found"));
         Exam exam = examRepository.findById(studentAnswerDTO.getExamId())
@@ -43,12 +44,19 @@ public class StudentAnswerServiceImpl implements StudentAnswerService {
         Answer answer = answerRepository.findById(studentAnswerDTO.getAnswerId())
             .orElseThrow(() -> new RuntimeException("Answer not found"));
 
+        // Check if the provided answerText matches the correct answer
+        boolean isCorrectAnswer = answer.getAnswerText().equals(studentAnswerDTO.getAnswerText())
+            && answer.isCorrect();
+
+        // Map DTO to entity
         StudentAnswer studentAnswer = modelMapper.map(studentAnswerDTO, StudentAnswer.class);
         studentAnswer.setUser(user);
         studentAnswer.setExam(exam);
         studentAnswer.setQuestion(question);
         studentAnswer.setAnswer(answer);
+        studentAnswer.setIsCorrect(isCorrectAnswer);
 
+        // Save and return the result
         StudentAnswer savedStudentAnswer = studentAnswerRepository.save(studentAnswer);
         return modelMapper.map(savedStudentAnswer, StudentAnswerDTO.class);
     }

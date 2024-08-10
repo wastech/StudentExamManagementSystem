@@ -40,19 +40,20 @@ public class ExamResultServiceImpl implements ExamResultService {
         Exam exam = examRepository.findById(examResultDTO.getExamId())
             .orElseThrow(() -> new RuntimeException("Exam not found"));
 
-        // Calculate the total number of questions in the exam
         int totalQuestions = questionRepository.countByExam(exam);
 
-        // Calculate the number of correct answers given by the student
+
         List<StudentAnswer> studentAnswers = studentAnswerRepository.findByExamAndUser(exam, user);
+
         int correctAnswers = (int) studentAnswers.stream()
-            .filter(StudentAnswer::getCorrect)
+            .filter(StudentAnswer::getIsCorrect)
             .count();
+
+        System.out.println("correctAnswers"+ correctAnswers);
 
         // Calculate the percentage score
         float percentageScore = ((float) correctAnswers / totalQuestions) * 100;
 
-        // Manually map the DTO to the entity
         ExamResult examResult = new ExamResult();
         examResult.setUser(user);
         examResult.setExam(exam);
@@ -60,10 +61,8 @@ public class ExamResultServiceImpl implements ExamResultService {
         examResult.setPercentageScore(percentageScore);
         examResult.setResultDate(new Date());
 
-        // Save the exam result
         ExamResult savedExamResult = examResultRepository.save(examResult);
 
-        // Manually map the entity to the DTO
         ExamResultDTO savedExamResultDTO = new ExamResultDTO();
         savedExamResultDTO.setUserId(savedExamResult.getUser().getUserId());
         savedExamResultDTO.setExamId(savedExamResult.getExam().getExamId());
@@ -98,11 +97,9 @@ public class ExamResultServiceImpl implements ExamResultService {
         Exam exam = examRepository.findById(examResultDTO.getExamId())
             .orElseThrow(() -> new RuntimeException("Exam not found"));
 
-        // Recalculate the total number of questions and correct answers
         int totalQuestions = questionRepository.countByExam(exam);
-        System.out.println("totalQuestions"+ totalQuestions);
         int correctAnswers = (int) studentAnswerRepository.findByExamAndUser(exam, user).stream()
-            .filter(StudentAnswer::getCorrect)
+            .filter(StudentAnswer::getIsCorrect)
             .count();
         float percentageScore = ((float) correctAnswers / totalQuestions) * 100;
 

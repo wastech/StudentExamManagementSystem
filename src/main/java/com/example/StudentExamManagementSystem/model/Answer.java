@@ -25,7 +25,7 @@ public class Answer {
 
 
     @Column(name = "is_correct", nullable = false)
-    private boolean correct;
+    private boolean isCorrect;
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "created_at", nullable = false, updatable = false)

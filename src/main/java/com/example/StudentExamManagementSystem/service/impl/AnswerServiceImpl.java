@@ -62,7 +62,7 @@ public class AnswerServiceImpl implements AnswerService {
             .orElseThrow(() -> new RuntimeException("Answer not found"));
 
         answer.setAnswerText(answerDTO.getAnswerText());
-        answer.setCorrect(answerDTO.isCorrect());
+        answer.setCorrect(answerDTO.getIsCorrect());
         Answer updatedAnswer = answerRepository.save(answer);
 
         return modelMapper.map(updatedAnswer, AnswerDTO.class);
