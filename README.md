@@ -35,6 +35,7 @@ The database schema for the system is designed to handle various entities and th
 - Java 17 or higher
 - Maven
 - Git
+- Docker
 
 ### Installation
 
