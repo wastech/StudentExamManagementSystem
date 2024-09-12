@@ -26,7 +26,8 @@ The database schema for the system is designed to handle various entities and th
 
 ### Database Diagram
 
-![online assessment](https://github.com/user-attachments/assets/4a09af2e-fd00-4a08-b8eb-174c444bcd61)
+![Untitled(1)](https://github.com/user-attachments/assets/271ca5e0-6ef7-44ed-9594-3cbdbb3461bd)
+
 
 ## Getting Started
 
